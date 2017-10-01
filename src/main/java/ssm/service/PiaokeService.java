@@ -15,4 +15,6 @@ public interface PiaokeService {
 
     public void condition1(String type);
 
+    public void condition2();
+
 }
