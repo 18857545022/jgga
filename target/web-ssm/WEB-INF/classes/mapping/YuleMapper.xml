@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ssm.model.YuleMapper">
+    <insert id="save"  parameterType="ssm.pojo.Yule" >
+        INSERT INTO yule
+         VALUES
+            	(
+            		#{id},
+            		#{cjsj},
+            		#{xm},
+            		#{zjhm},
+            		#{zz},
+            		#{xb},
+            		#{mz},
+            		#{csrq},
+            		#{zjlx},
+            		#{jg},
+            		#{type},
+            		#{cydz},
+            		#{last_lgmc},
+            		#{last_lgbm},
+            		#{last_fh},
+            		#{message}
+            	)
+    </insert>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ssm.model.HotelCountMapper">
+	<insert id="add" parameterType="ssm.pojo.HotelCount" >
+		INSERT INTO hotel_count
+		VALUES
+			(
+				#{cjsj},
+				#{xm},
+				#{zjhm},
+				#{count},
+				#{zz},
+				#{xb},
+				#{mz},
+				#{csrq},
+				#{zjlx},
+				#{kfjl},
+				#{type}
+			)
+			ON DUPLICATE KEY UPDATE  cjsj=values(cjsj),
+									  count=VALUES (count),
+			 						 kfjl=values(kfjl)
+ 	</insert>
+
+	<select id="findBycjsj"  resultType="ssm.pojo.HotelCount">
+	SELECT *
+	from hotel_count
+	where type=#{param2}
+	and zjhm=#{param3}
+	and cjsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} hour) and SYSDATE()
+
+	</select>
+
+
+</mapper>
