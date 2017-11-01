@@ -19,9 +19,10 @@
             		#{jg},
             		#{type},
             		#{cydz},
-            		#{last_lgmc},
-            		#{last_lgbm},
-            		#{last_fh},
+            		#{lastLgmc},
+            		#{lastLgbm},
+            		#{lastFh},
+            		#{count},
             		#{message}
             	)
     </insert>

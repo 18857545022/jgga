@@ -170,4 +170,27 @@ public class Yule {
     public void setMessage(String message) {
         this.message = message == null ? null : message.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Yule{" +
+                "id=" + id +
+                ", cjsj='" + cjsj + '\'' +
+                ", xm='" + xm + '\'' +
+                ", zjhm='" + zjhm + '\'' +
+                ", zz='" + zz + '\'' +
+                ", xb='" + xb + '\'' +
+                ", mz='" + mz + '\'' +
+                ", csrq='" + csrq + '\'' +
+                ", zjlx='" + zjlx + '\'' +
+                ", jg='" + jg + '\'' +
+                ", type=" + type +
+                ", cydz='" + cydz + '\'' +
+                ", lastLgmc='" + lastLgmc + '\'' +
+                ", lastLgbm='" + lastLgbm + '\'' +
+                ", lastFh='" + lastFh + '\'' +
+                ", count=" + count +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

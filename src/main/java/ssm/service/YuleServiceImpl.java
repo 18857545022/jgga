@@ -39,10 +39,13 @@ public class YuleServiceImpl implements YuleService{
             //如果存在数据,进行数据整理并且存入yule表中
         List<Entertainperson> list = entertainpersonMapper.find();
         for(Entertainperson enter:list){
-            HotelCount hotelCount = hotelCountMapper.findBycjsj(time, "0607", enter.getIdnum());
-            System.out.println(hotelCount);
-            if(hotelCount!=null){
+            //System.out.println(enter);
+            List<HotelCount> hotelCounts = hotelCountMapper.findBycjsj(time, "0607", enter.getIdnum());
+            if(hotelCounts.toString()!="[]"){
+                HotelCount hotelCount=hotelCounts.get(0);
+               // System.out.println(hotelCount);
                 Yule yule = dateToYule(enter, hotelCount);
+                //System.out.println(yule);
                 yuleMapper.save(yule);
             }
         }
@@ -55,23 +58,26 @@ public class YuleServiceImpl implements YuleService{
     public Yule dateToYule(Entertainperson enter,HotelCount hotelCount){
         Yule yule = new Yule();
         yule.setCjsj(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
+        yule.setCjsj(hotelCount.getCjsj());
+        yule.setXm(hotelCount.getXm());
+        yule.setZjhm(hotelCount.getZjhm());
+        yule.setZz(hotelCount.getZz());
         yule.setXb(hotelCount.getXb());
         yule.setMz(hotelCount.getMz());
-        yule.setZz(hotelCount.getZz());
-        yule.setXm(hotelCount.getXm());
         yule.setCsrq(hotelCount.getCsrq());
-        yule.setZjlx(hotelCount.getZjhm());
+        yule.setZjlx(hotelCount.getZjlx());
         yule.setType(1);
-        yule.setCydz(enter.getUnitName());
-        yule.setMessage(hotelCount.getKfjl());
+        //System.out.println(enter);
+        yule.setCydz(enter.getUnit_name());
+        yule.setCount(hotelCount.getCount());
         String message=hotelCount.getKfjl();
+        yule.setMessage(message);
         String[] strs=message.split(",");
         Hotelguest hotelguest = hotelMapper.getByZklsh(strs[0]);
         yule.setLastFh(hotelguest.getFh());
         yule.setLastLgbm(hotelguest.getLgbm());
         yule.setLastLgmc(hotelguest.getLgmc());
         yule.setJg(hotelguest.getJg());
-        yule.setZjlx(hotelguest.getZjlx());
         return yule;
     }
 }

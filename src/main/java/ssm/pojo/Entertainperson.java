@@ -13,18 +13,33 @@ public class Entertainperson {
 
     private String registeredaddrstreet;
 
-    private String unitName;
+    private String unit_name;
 
-    private String governUnitName;
+    private String govern_unit_name;
 
-    private String goverUnit;
+    private String gover_unit;
+
+    @Override
+    public String toString() {
+        return "Entertainperson{" +
+                "idnum='" + idnum + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", telphone='" + telphone + '\'' +
+                ", registeredaddrstreet='" + registeredaddrstreet + '\'' +
+                ", unit_name='" + unit_name + '\'' +
+                ", govern_unit_name='" + govern_unit_name + '\'' +
+                ", gover_unit='" + gover_unit + '\'' +
+                '}';
+    }
 
     public String getIdnum() {
         return idnum;
     }
 
     public void setIdnum(String idnum) {
-        this.idnum = idnum == null ? null : idnum.trim();
+        this.idnum = idnum;
     }
 
     public String getFirstname() {
@@ -32,7 +47,7 @@ public class Entertainperson {
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname == null ? null : firstname.trim();
+        this.firstname = firstname;
     }
 
     public String getSex() {
@@ -40,7 +55,7 @@ public class Entertainperson {
     }
 
     public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+        this.sex = sex;
     }
 
     public String getBirthday() {
@@ -48,7 +63,7 @@ public class Entertainperson {
     }
 
     public void setBirthday(String birthday) {
-        this.birthday = birthday == null ? null : birthday.trim();
+        this.birthday = birthday;
     }
 
     public String getTelphone() {
@@ -56,7 +71,7 @@ public class Entertainperson {
     }
 
     public void setTelphone(String telphone) {
-        this.telphone = telphone == null ? null : telphone.trim();
+        this.telphone = telphone;
     }
 
     public String getRegisteredaddrstreet() {
@@ -64,30 +79,30 @@ public class Entertainperson {
     }
 
     public void setRegisteredaddrstreet(String registeredaddrstreet) {
-        this.registeredaddrstreet = registeredaddrstreet == null ? null : registeredaddrstreet.trim();
+        this.registeredaddrstreet = registeredaddrstreet;
     }
 
-    public String getUnitName() {
-        return unitName;
+    public String getUnit_name() {
+        return unit_name;
     }
 
-    public void setUnitName(String unitName) {
-        this.unitName = unitName == null ? null : unitName.trim();
+    public void setUnit_name(String unit_name) {
+        this.unit_name = unit_name;
     }
 
-    public String getGovernUnitName() {
-        return governUnitName;
+    public String getGovern_unit_name() {
+        return govern_unit_name;
     }
 
-    public void setGovernUnitName(String governUnitName) {
-        this.governUnitName = governUnitName == null ? null : governUnitName.trim();
+    public void setGovern_unit_name(String govern_unit_name) {
+        this.govern_unit_name = govern_unit_name;
     }
 
-    public String getGoverUnit() {
-        return goverUnit;
+    public String getGover_unit() {
+        return gover_unit;
     }
 
-    public void setGoverUnit(String goverUnit) {
-        this.goverUnit = goverUnit == null ? null : goverUnit.trim();
+    public void setGover_unit(String gover_unit) {
+        this.gover_unit = gover_unit;
     }
 }

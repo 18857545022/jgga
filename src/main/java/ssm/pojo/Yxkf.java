@@ -9,7 +9,7 @@ public class Yxkf {
 
     private String zjhm;
 
-    private String lgbm;
+    private String zklsh;
 
     private String rzsj;
 
@@ -23,9 +23,17 @@ public class Yxkf {
 
     private String zjlx;
 
+    private String jg;
+
+    private String lgmc;
+
+    private String lgbm;
+
+    private String fh;
+
     private String yxXm;
 
-    private String yxLgbm;
+    private String yxZklsh;
 
     public Integer getId() {
         return id;
@@ -59,12 +67,12 @@ public class Yxkf {
         this.zjhm = zjhm == null ? null : zjhm.trim();
     }
 
-    public String getLgbm() {
-        return lgbm;
+    public String getZklsh() {
+        return zklsh;
     }
 
-    public void setLgbm(String lgbm) {
-        this.lgbm = lgbm == null ? null : lgbm.trim();
+    public void setZklsh(String zklsh) {
+        this.zklsh = zklsh == null ? null : zklsh.trim();
     }
 
     public String getRzsj() {
@@ -115,6 +123,38 @@ public class Yxkf {
         this.zjlx = zjlx == null ? null : zjlx.trim();
     }
 
+    public String getJg() {
+        return jg;
+    }
+
+    public void setJg(String jg) {
+        this.jg = jg == null ? null : jg.trim();
+    }
+
+    public String getLgmc() {
+        return lgmc;
+    }
+
+    public void setLgmc(String lgmc) {
+        this.lgmc = lgmc == null ? null : lgmc.trim();
+    }
+
+    public String getLgbm() {
+        return lgbm;
+    }
+
+    public void setLgbm(String lgbm) {
+        this.lgbm = lgbm == null ? null : lgbm.trim();
+    }
+
+    public String getFh() {
+        return fh;
+    }
+
+    public void setFh(String fh) {
+        this.fh = fh == null ? null : fh.trim();
+    }
+
     public String getYxXm() {
         return yxXm;
     }
@@ -123,11 +163,11 @@ public class Yxkf {
         this.yxXm = yxXm == null ? null : yxXm.trim();
     }
 
-    public String getYxLgbm() {
-        return yxLgbm;
+    public String getYxZklsh() {
+        return yxZklsh;
     }
 
-    public void setYxLgbm(String yxLgbm) {
-        this.yxLgbm = yxLgbm == null ? null : yxLgbm.trim();
+    public void setYxZklsh(String yxZklsh) {
+        this.yxZklsh = yxZklsh == null ? null : yxZklsh.trim();
     }
 }
