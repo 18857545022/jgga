@@ -1,10 +1,5 @@
 package ssm.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import ssm.model.HotelMapper;
-
-import java.util.List;
-
 public interface HotelCountService {
 
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ssm.model.YxkfMapper">
+
+	<insert id="save" 
+		parameterType="ssm.pojo.Yxkf">
+		 insert into yxkf
+		 values(
+		 #{cjsj},
+		 #{id},
+		 #{xm},
+		 #{zjhm},
+		 #{zklsh},
+		 #{rzsj},
+		 #{zz},
+		 #{xb},
+		 #{mz},
+		 #{csrq},
+		 #{zjlx},
+		 #{jg},
+		 #{lgmc},
+		 #{lgbm},
+		 #{fh},
+		 #{yx_xm},
+		 #{yx_zjhm},
+		 #{yx_type},
+		 #{yx_zklsh}
+		)
+	</insert>
+	
+	<select id="getZjhm_month" resultType="string" parameterType="string">
+	select a.zjhm
+	from
+	(select zjhm,yx_xm
+	FROM yxkf
+	WHERE rzsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL ${_parameter} month) and SYSDATE()
+	GROUP BY zjhm,yx_xm)a
+	GROUP BY a.zjhm
+	HAVING count(1)>1
+	ORDER BY zjhm
+	</select>
+	
+	
+	<select id="getZjhm_hour"  resultType="String" >
+	select zjhm
+	FROM yxkf 
+	where rzsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL #{param1} hour) and SYSDATE()
+	and zjhm in
+	(select a.zjhm
+	from
+	(select zjhm,yx_xm
+	FROM yxkf
+	WHERE rzsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL #{param2} month) and SYSDATE()
+	GROUP BY zjhm,yx_xm)a
+	GROUP BY a.zjhm
+	HAVING count(1)>1
+	ORDER BY zjhm)
+	</select>
+	
+	
+	
+	
+	<select id="getYxkfByZjhm_month" resultType="ssm.pojo.YxkfPojo" parameterType="ssm.pojo.SqlPojo">
+		select *
+		FROM yxkf
+		WHERE rzsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL #{param1} month) and SYSDATE()
+		and zjhm=#{param2}
+		order by rzsj desc
+	</select>
+
+	<select id="getZjhm" resultType="ssm.pojo.ZjAndCount" >
+		select b.zjhm,count(1) as count
+		FROM(
+		select a.zjhm,a.yx_xm
+		FROM(
+		select zjhm,rzsj,yx_xm
+		FROM yxkf
+		where rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} month) and SYSDATE()
+		GROUP BY rzsj,zjhm,yx_xm)a
+		GROUP BY a.zjhm,a.yx_xm)b
+		GROUP BY b.zjhm
+		HAVING count(1)>#{param2}
+	</select>
+
+	<select id="getMessByZjkhm"  resultType="ssm.pojo.Yxkf">
+		select *
+		from yxkf
+		where cjsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param2} month) and SYSDATE()
+		AND zjhm=#{param1}
+		ORDER BY rzsj desc
+
+	</select>
+
+	
+</mapper>

@@ -19,6 +19,8 @@ public class HotelYx {
 
     private String zjlx;
 
+    private Integer rs;
+
     private String yxxx;
 
     private String type;
@@ -93,6 +95,14 @@ public class HotelYx {
 
     public void setZjlx(String zjlx) {
         this.zjlx = zjlx == null ? null : zjlx.trim();
+    }
+
+    public Integer getRs() {
+        return rs;
+    }
+
+    public void setRs(Integer rs) {
+        this.rs = rs;
     }
 
     public String getYxxx() {

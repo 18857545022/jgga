@@ -13,7 +13,7 @@ public class HotelCountController {
     @Autowired
     private HotelCountService hotelCountService;
 
-    @RequestMapping("test")
+    @RequestMapping("/test")
     @ResponseBody
     public String test(){
         String s = hotelCountService.saveHotelCount(6, 7);

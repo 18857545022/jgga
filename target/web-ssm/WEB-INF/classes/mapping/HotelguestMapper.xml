@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="ssm.model.HotelMapper">
+<mapper namespace="ssm.model.HotelguestMapper">
 	<select id="getHotelCount" resultType="string">
 		select zjhm
 		FROM hotelguest
@@ -23,6 +23,26 @@
 		select *
 		from hotelguest
 		where zklsh=#{zklsh}
+	</select>
+
+	<select id="getByXb_history"  resultType="ssm.pojo.Hotelguest" >
+		select *
+		FROM hotelguest
+		WHERE TO_DAYS(rzsj)=TO_DAYS(now())-${param2}
+		AND xb=#{param1};
+	</select>
+
+	<select id="getByXb_update"  resultType="ssm.pojo.Hotelguest" >
+		select *
+		FROM hotelguest
+		WHERE rzsj BETWEEN  SUBDATE(SYSDATE(),INTERVAL ${param2} hour) and SYSDATE()
+		AND xb=#{param1};
+	</select>
+
+	<select id="get_history" parameterType="int" resultType="ssm.pojo.Hotelguest">
+		select *
+		FROM hotelguest
+		WHERE TO_DAYS(rzsj)=TO_DAYS(now())-#{param1};
 	</select>
 
 	

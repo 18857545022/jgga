@@ -19,6 +19,7 @@
             		#{jg},
             		#{type},
             		#{cydz},
+            		#{lastRzsj},
             		#{lastLgmc},
             		#{lastLgbm},
             		#{lastFh},
@@ -26,4 +27,26 @@
             		#{message}
             	)
     </insert>
+
+	<select id="findZjAndCount_update" resultType="ssm.pojo.ZjAndCount">
+		select zjhm,count(1) as count
+		FROM yule
+		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL #{param1} hour) and SYSDATE()
+		group by zjhm
+	</select>
+
+	<select id="find_history" resultType="ssm.pojo.ZjAndCount">
+		select zjhm,count(1) as count
+		FROM yule
+		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} month) and SYSDATE()
+		group by zjhm
+	</select>
+
+	<select id="findByZjhm" resultType="ssm.pojo.Yule"  parameterType="string">
+		select *
+		FROM yule
+		where zjhm=#{zjhm}
+	</select>
+
+
 </mapper>

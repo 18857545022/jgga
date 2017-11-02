@@ -31,9 +31,38 @@ public class Yxkf {
 
     private String fh;
 
-    private String yxXm;
+    private String yx_xm;
 
-    private String yxZklsh;
+    private String yx_zjhm;
+
+    private Integer yx_type;
+
+    private String yx_zklsh;
+
+    @Override
+    public String toString() {
+        return "Yxkf{" +
+                "id=" + id +
+                ", cjsj='" + cjsj + '\'' +
+                ", xm='" + xm + '\'' +
+                ", zjhm='" + zjhm + '\'' +
+                ", zklsh='" + zklsh + '\'' +
+                ", rzsj='" + rzsj + '\'' +
+                ", zz='" + zz + '\'' +
+                ", xb='" + xb + '\'' +
+                ", mz='" + mz + '\'' +
+                ", csrq='" + csrq + '\'' +
+                ", zjlx='" + zjlx + '\'' +
+                ", jg='" + jg + '\'' +
+                ", lgmc='" + lgmc + '\'' +
+                ", lgbm='" + lgbm + '\'' +
+                ", fh='" + fh + '\'' +
+                ", yx_xm='" + yx_xm + '\'' +
+                ", yx_zjhm='" + yx_zjhm + '\'' +
+                ", yx_type=" + yx_type +
+                ", yx_zklsh='" + yx_zklsh + '\'' +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -48,7 +77,7 @@ public class Yxkf {
     }
 
     public void setCjsj(String cjsj) {
-        this.cjsj = cjsj == null ? null : cjsj.trim();
+        this.cjsj = cjsj;
     }
 
     public String getXm() {
@@ -56,7 +85,7 @@ public class Yxkf {
     }
 
     public void setXm(String xm) {
-        this.xm = xm == null ? null : xm.trim();
+        this.xm = xm;
     }
 
     public String getZjhm() {
@@ -64,7 +93,7 @@ public class Yxkf {
     }
 
     public void setZjhm(String zjhm) {
-        this.zjhm = zjhm == null ? null : zjhm.trim();
+        this.zjhm = zjhm;
     }
 
     public String getZklsh() {
@@ -72,7 +101,7 @@ public class Yxkf {
     }
 
     public void setZklsh(String zklsh) {
-        this.zklsh = zklsh == null ? null : zklsh.trim();
+        this.zklsh = zklsh;
     }
 
     public String getRzsj() {
@@ -80,7 +109,7 @@ public class Yxkf {
     }
 
     public void setRzsj(String rzsj) {
-        this.rzsj = rzsj == null ? null : rzsj.trim();
+        this.rzsj = rzsj;
     }
 
     public String getZz() {
@@ -88,7 +117,7 @@ public class Yxkf {
     }
 
     public void setZz(String zz) {
-        this.zz = zz == null ? null : zz.trim();
+        this.zz = zz;
     }
 
     public String getXb() {
@@ -96,7 +125,7 @@ public class Yxkf {
     }
 
     public void setXb(String xb) {
-        this.xb = xb == null ? null : xb.trim();
+        this.xb = xb;
     }
 
     public String getMz() {
@@ -104,7 +133,7 @@ public class Yxkf {
     }
 
     public void setMz(String mz) {
-        this.mz = mz == null ? null : mz.trim();
+        this.mz = mz;
     }
 
     public String getCsrq() {
@@ -112,7 +141,7 @@ public class Yxkf {
     }
 
     public void setCsrq(String csrq) {
-        this.csrq = csrq == null ? null : csrq.trim();
+        this.csrq = csrq;
     }
 
     public String getZjlx() {
@@ -120,7 +149,7 @@ public class Yxkf {
     }
 
     public void setZjlx(String zjlx) {
-        this.zjlx = zjlx == null ? null : zjlx.trim();
+        this.zjlx = zjlx;
     }
 
     public String getJg() {
@@ -128,7 +157,7 @@ public class Yxkf {
     }
 
     public void setJg(String jg) {
-        this.jg = jg == null ? null : jg.trim();
+        this.jg = jg;
     }
 
     public String getLgmc() {
@@ -136,7 +165,7 @@ public class Yxkf {
     }
 
     public void setLgmc(String lgmc) {
-        this.lgmc = lgmc == null ? null : lgmc.trim();
+        this.lgmc = lgmc;
     }
 
     public String getLgbm() {
@@ -144,7 +173,7 @@ public class Yxkf {
     }
 
     public void setLgbm(String lgbm) {
-        this.lgbm = lgbm == null ? null : lgbm.trim();
+        this.lgbm = lgbm;
     }
 
     public String getFh() {
@@ -152,22 +181,38 @@ public class Yxkf {
     }
 
     public void setFh(String fh) {
-        this.fh = fh == null ? null : fh.trim();
+        this.fh = fh;
     }
 
-    public String getYxXm() {
-        return yxXm;
+    public String getYx_xm() {
+        return yx_xm;
     }
 
-    public void setYxXm(String yxXm) {
-        this.yxXm = yxXm == null ? null : yxXm.trim();
+    public void setYx_xm(String yx_xm) {
+        this.yx_xm = yx_xm;
     }
 
-    public String getYxZklsh() {
-        return yxZklsh;
+    public String getYx_zjhm() {
+        return yx_zjhm;
     }
 
-    public void setYxZklsh(String yxZklsh) {
-        this.yxZklsh = yxZklsh == null ? null : yxZklsh.trim();
+    public void setYx_zjhm(String yx_zjhm) {
+        this.yx_zjhm = yx_zjhm;
+    }
+
+    public Integer getYx_type() {
+        return yx_type;
+    }
+
+    public void setYx_type(Integer yx_type) {
+        this.yx_type = yx_type;
+    }
+
+    public String getYx_zklsh() {
+        return yx_zklsh;
+    }
+
+    public void setYx_zklsh(String yx_zklsh) {
+        this.yx_zklsh = yx_zklsh;
     }
 }

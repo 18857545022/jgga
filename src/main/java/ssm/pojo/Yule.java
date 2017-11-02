@@ -25,151 +25,17 @@ public class Yule {
 
     private String cydz;
 
-    private String lastLgmc;
+    private String last_rzsj;
 
-    private String lastLgbm;
+    private String last_lgmc;
 
-    private String lastFh;
+    private String last_lgbm;
+
+    private String last_fh;
 
     private Integer count;
 
     private String message;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCjsj() {
-        return cjsj;
-    }
-
-    public void setCjsj(String cjsj) {
-        this.cjsj = cjsj == null ? null : cjsj.trim();
-    }
-
-    public String getXm() {
-        return xm;
-    }
-
-    public void setXm(String xm) {
-        this.xm = xm == null ? null : xm.trim();
-    }
-
-    public String getZjhm() {
-        return zjhm;
-    }
-
-    public void setZjhm(String zjhm) {
-        this.zjhm = zjhm == null ? null : zjhm.trim();
-    }
-
-    public String getZz() {
-        return zz;
-    }
-
-    public void setZz(String zz) {
-        this.zz = zz == null ? null : zz.trim();
-    }
-
-    public String getXb() {
-        return xb;
-    }
-
-    public void setXb(String xb) {
-        this.xb = xb == null ? null : xb.trim();
-    }
-
-    public String getMz() {
-        return mz;
-    }
-
-    public void setMz(String mz) {
-        this.mz = mz == null ? null : mz.trim();
-    }
-
-    public String getCsrq() {
-        return csrq;
-    }
-
-    public void setCsrq(String csrq) {
-        this.csrq = csrq == null ? null : csrq.trim();
-    }
-
-    public String getZjlx() {
-        return zjlx;
-    }
-
-    public void setZjlx(String zjlx) {
-        this.zjlx = zjlx == null ? null : zjlx.trim();
-    }
-
-    public String getJg() {
-        return jg;
-    }
-
-    public void setJg(String jg) {
-        this.jg = jg == null ? null : jg.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getCydz() {
-        return cydz;
-    }
-
-    public void setCydz(String cydz) {
-        this.cydz = cydz == null ? null : cydz.trim();
-    }
-
-    public String getLastLgmc() {
-        return lastLgmc;
-    }
-
-    public void setLastLgmc(String lastLgmc) {
-        this.lastLgmc = lastLgmc == null ? null : lastLgmc.trim();
-    }
-
-    public String getLastLgbm() {
-        return lastLgbm;
-    }
-
-    public void setLastLgbm(String lastLgbm) {
-        this.lastLgbm = lastLgbm == null ? null : lastLgbm.trim();
-    }
-
-    public String getLastFh() {
-        return lastFh;
-    }
-
-    public void setLastFh(String lastFh) {
-        this.lastFh = lastFh == null ? null : lastFh.trim();
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
-    }
 
     @Override
     public String toString() {
@@ -186,11 +52,156 @@ public class Yule {
                 ", jg='" + jg + '\'' +
                 ", type=" + type +
                 ", cydz='" + cydz + '\'' +
-                ", lastLgmc='" + lastLgmc + '\'' +
-                ", lastLgbm='" + lastLgbm + '\'' +
-                ", lastFh='" + lastFh + '\'' +
+                ", last_rzsj='" + last_rzsj + '\'' +
+                ", last_lgmc='" + last_lgmc + '\'' +
+                ", last_lgbm='" + last_lgbm + '\'' +
+                ", last_fh='" + last_fh + '\'' +
                 ", count=" + count +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCjsj() {
+        return cjsj;
+    }
+
+    public void setCjsj(String cjsj) {
+        this.cjsj = cjsj;
+    }
+
+    public String getXm() {
+        return xm;
+    }
+
+    public void setXm(String xm) {
+        this.xm = xm;
+    }
+
+    public String getZjhm() {
+        return zjhm;
+    }
+
+    public void setZjhm(String zjhm) {
+        this.zjhm = zjhm;
+    }
+
+    public String getZz() {
+        return zz;
+    }
+
+    public void setZz(String zz) {
+        this.zz = zz;
+    }
+
+    public String getXb() {
+        return xb;
+    }
+
+    public void setXb(String xb) {
+        this.xb = xb;
+    }
+
+    public String getMz() {
+        return mz;
+    }
+
+    public void setMz(String mz) {
+        this.mz = mz;
+    }
+
+    public String getCsrq() {
+        return csrq;
+    }
+
+    public void setCsrq(String csrq) {
+        this.csrq = csrq;
+    }
+
+    public String getZjlx() {
+        return zjlx;
+    }
+
+    public void setZjlx(String zjlx) {
+        this.zjlx = zjlx;
+    }
+
+    public String getJg() {
+        return jg;
+    }
+
+    public void setJg(String jg) {
+        this.jg = jg;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getCydz() {
+        return cydz;
+    }
+
+    public void setCydz(String cydz) {
+        this.cydz = cydz;
+    }
+
+    public String getLast_rzsj() {
+        return last_rzsj;
+    }
+
+    public void setLast_rzsj(String last_rzsj) {
+        this.last_rzsj = last_rzsj;
+    }
+
+    public String getLast_lgmc() {
+        return last_lgmc;
+    }
+
+    public void setLast_lgmc(String last_lgmc) {
+        this.last_lgmc = last_lgmc;
+    }
+
+    public String getLast_lgbm() {
+        return last_lgbm;
+    }
+
+    public void setLast_lgbm(String last_lgbm) {
+        this.last_lgbm = last_lgbm;
+    }
+
+    public String getLast_fh() {
+        return last_fh;
+    }
+
+    public void setLast_fh(String last_fh) {
+        this.last_fh = last_fh;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

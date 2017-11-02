@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ssm.pojo.Yule;
 import ssm.service.YuleService;
+
+import java.util.List;
+
 @Controller
 public class YuleController {
 
@@ -12,9 +16,27 @@ public class YuleController {
     private YuleService yuleService;
 
     @ResponseBody
-    @RequestMapping("/test1")
-    public String yule(){
+    @RequestMapping("/condition1")
+    public String yule1(){
         String s = yuleService.condition1();
         return s;
     }
+
+
+    @ResponseBody
+    @RequestMapping("/condition2")
+    public String yule2(){
+        String s = yuleService.condition2();
+        return s;
+    }
+
+    //定时推送任务
+
+    @ResponseBody
+    @RequestMapping("/updateyl")
+    public List<Yule> get_updete(){
+        List<Yule> mess_updte = yuleService.getMess_updte();
+        return mess_updte;
+    }
+
 }

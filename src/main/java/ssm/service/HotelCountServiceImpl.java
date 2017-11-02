@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.model.HotelCountMapper;
-import ssm.model.HotelMapper;
+import ssm.model.HotelguestMapper;
 import ssm.pojo.HotelCount;
 import ssm.pojo.Hotelguest;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class HotelCountServiceImpl implements  HotelCountService {
     @Autowired
-    private HotelMapper hotelMapper;
+    private HotelguestMapper hotelguestMapper;
 
     @Autowired
     private HotelCountMapper hotelCountMapper;
@@ -24,10 +24,10 @@ public class HotelCountServiceImpl implements  HotelCountService {
      * 备注：type=‘0607’ 表示6月内7次以上
      */
     public String saveHotelCount(Integer month, Integer count){
-        List<String> zjhms = hotelMapper.getHotelCount(6, 7);
+        List<String> zjhms = hotelguestMapper.getHotelCount(6, 7);
         HotelCount hotelcout=new HotelCount();
         for(String zjhm:zjhms){
-            List<Hotelguest> hotels = hotelMapper.getByZjhm(6, zjhm);
+            List<Hotelguest> hotels = hotelguestMapper.getByZjhm(6, zjhm);
             HotelCount hotelCount = hotelToHotelcount(hotels);
             //System.out.println(hotelCount.toString());
             hotelCountMapper.add(hotelCount);

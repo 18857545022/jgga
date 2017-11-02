@@ -4,15 +4,11 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ssm.model.EntertainpersonMapper;
-import ssm.model.HotelCountMapper;
-import ssm.model.HotelMapper;
-import ssm.model.YuleMapper;
-import ssm.pojo.Entertainperson;
-import ssm.pojo.HotelCount;
-import ssm.pojo.Hotelguest;
-import ssm.pojo.Yule;
+import ssm.model.*;
+import ssm.pojo.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 @Service
 public class YuleServiceImpl implements YuleService{
@@ -23,13 +19,24 @@ public class YuleServiceImpl implements YuleService{
     private HotelCountMapper hotelCountMapper;
 
     @Autowired
-    private HotelMapper hotelMapper;
+    private HotelguestMapper hotelguestMapper;
+
+    @Autowired
+    private YxkfMapper yxkfMapper;
 
     @Autowired
     private YuleMapper yuleMapper;
 
     @Value("${time}")
     private Integer time;
+
+    @Value("${yuleMonth}")
+    private Integer month;
+
+    @Value("${yuleYxRs}")
+    private Integer yxrs;
+
+
 
 
     public String condition1() {
@@ -54,6 +61,97 @@ public class YuleServiceImpl implements YuleService{
 
     }
 
+    public String condition2() {
+        //查找6个月内与1名以上异性开房的住客zjhms
+        List<ZjAndCount> zcs = yxkfMapper.getZjhm(month, yxrs);
+        System.out.println(zcs.toString());
+        //查找娱乐从业人员zjhm
+        List<Entertainperson> ents = entertainpersonMapper.find();
+        System.out.println(ents.toString());
+        //遍历匹配
+        for(ZjAndCount zc:zcs){
+                boolean flag=false;
+                Yule yule=new Yule();
+                Yx[]yxs=new Yx[zc.getCount()];
+
+                for(Entertainperson ent:ents){
+                    if(zc.getZjhm().equals(ent.getIdnum())){
+                        yule.setCydz(ent.getUnit_name());
+                        flag=true;
+                        break;
+                    }
+                }
+                if(flag){
+                    int index=0;
+                    List<Yxkf> yxkfs = yxkfMapper.getMessByZjkhm(zc.getZjhm(), month);
+                    for(int i=0;i<yxkfs.size();i++) {
+                        Yxkf yxkf = yxkfs.get(i);
+                        System.out.println("yxkf:"+yxkf);
+                        Yx yx = new Yx();
+                        if (i == 0) {
+                            yule.setCjsj(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
+                            yule.setXm(yxkf.getXm());
+                            System.out.println(yxkf.getXm());
+                            yule.setZjhm(yxkf.getZjhm());
+                            yule.setZz(yxkf.getZz());
+                            yule.setXb(yxkf.getXb());
+                            yule.setMz(yxkf.getMz());
+                            yule.setCsrq(yxkf.getCsrq());
+                            yule.setZjlx(yxkf.getZjlx());
+                            yule.setJg(yxkf.getJg());
+                            yule.setType(2);
+                            yule.setLast_rzsj(yxkf.getRzsj());
+                            yule.setLast_lgmc(yxkf.getLgmc());
+                            yule.setLast_lgbm(yxkf.getLgbm());
+                            yule.setLast_fh(yxkf.getFh());
+                            yule.setCount(zc.getCount());
+                            yx.setCount(1);
+                            yx.setKfjl(yxkf.getYx_zklsh());
+                            if(yxkf.getYx_type()!=null) {
+                                yx.setType(yxkf.getYx_type());
+                            }
+                            yx.setXm(yxkf.getYx_xm());
+                            yx.setZjhm(yxkf.getYx_zjhm());
+                            yxs[0] = yx;
+                            index++;
+                        } else {
+                            int num = -1;
+                            for (int n = 0; n < yxs.length; n++) {
+                                if (yxs[n]!=null&&yxs[n].getXm() == yxkf.getYx_xm()) {
+                                    num = n;
+                                    break;
+                                }
+                            }
+                            if(num!=-1){
+                                yx.setXm(yxs[num].getXm());
+                                yx.setZjhm(yxs[num].getZjhm());
+                                yx.setType(yxs[num].getType());
+                                yx.setCount(yxs[num].getCount()+1);
+                                yx.setKfjl(yxs[num].getKfjl()+","+yxkf.getYx_zklsh());
+                                yxs[num]=yx;
+                            }else{
+                                yx.setXm(yxkf.getXm());
+                                yx.setKfjl(yxkf.getYx_zklsh());
+                                yx.setCount(1);
+                                yx.setType(2);
+                                yx.setZjhm(yxkf.getYx_zjhm());
+                                yxs[index] = yx;
+                                index++;
+                            }
+                    }
+
+                    }
+                    yule.setMessage(Arrays.toString(yxs));
+                    System.out.println(yule);
+                    yuleMapper.save(yule);
+                }
+
+            }
+            //整理数据 存入Yule表中 type=2
+
+        return "Yule条件2数据存储完毕";
+    }
+
 
     public Yule dateToYule(Entertainperson enter,HotelCount hotelCount){
         Yule yule = new Yule();
@@ -73,11 +171,47 @@ public class YuleServiceImpl implements YuleService{
         String message=hotelCount.getKfjl();
         yule.setMessage(message);
         String[] strs=message.split(",");
-        Hotelguest hotelguest = hotelMapper.getByZklsh(strs[0]);
-        yule.setLastFh(hotelguest.getFh());
-        yule.setLastLgbm(hotelguest.getLgbm());
-        yule.setLastLgmc(hotelguest.getLgmc());
+        Hotelguest hotelguest = hotelguestMapper.getByZklsh(strs[0]);
+        yule.setLast_fh(hotelguest.getFh());
+        yule.setLast_lgbm(hotelguest.getLgbm());
+        yule.setLast_lgmc(hotelguest.getLgmc());
+        yule.setLast_rzsj(hotelguest.getRzsj());
         yule.setJg(hotelguest.getJg());
         return yule;
+    }
+
+
+    public List<Yule>getMess_updte(){
+        List<ZjAndCount> zcs = yuleMapper.findZjAndCount_update(time);
+        List<Yule> yules = getYules(zcs);
+        return yules;
+    }
+
+
+
+    public List<Yule> getYules(List<ZjAndCount> zcs){
+        List<Yule>yules=new ArrayList<Yule>();
+        for(ZjAndCount zc:zcs){
+            List<Yule> yls=yuleMapper.findByZjhm(zc.getZjhm());
+            if(zc.getCount()==1){
+                yules.add(yls.get(0));
+                continue;
+            }
+            String[] arr=new String[4];
+            int count=0;
+            for(Yule yl:yls){
+                int type=yl.getType();
+                arr[type-1]=yl.getMessage();
+                if(yl.getType()==1){
+                    count=yl.getCount();
+                }
+            }
+            Yule yule=yls.get(0);
+            yule.setCount(count);
+            yule.setType(10);
+            yule.setMessage(Arrays.toString(arr));
+            yules.add(yule);
+        }
+        return yules;
     }
 }
