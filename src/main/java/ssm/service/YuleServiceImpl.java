@@ -42,32 +42,35 @@ public class YuleServiceImpl implements YuleService{
     public String condition1() {
         //获取娱乐从业人员entertainperson的list
         //遍历list
-            //根据entertainperson.idnum去查询hotel_count表中对应数据
-            //如果存在数据,进行数据整理并且存入yule表中
+        //根据entertainperson.idnum去查询hotel_count表中对应数据
+        //如果存在数据,进行数据整理并且存入yule表中
         List<Entertainperson> list = entertainpersonMapper.find();
         for(Entertainperson enter:list){
             //System.out.println(enter);
-            List<HotelCount> hotelCounts = hotelCountMapper.findBycjsj(time, "0607", enter.getIdnum());
+            List<HotelCount> hotelCounts = hotelCountMapper.findByRzsj_hostory(month, "0607", enter.getIdnum());
             if(hotelCounts.toString()!="[]"){
                 HotelCount hotelCount=hotelCounts.get(0);
-               // System.out.println(hotelCount);
+                // System.out.println(hotelCount);
                 Yule yule = dateToYule(enter, hotelCount);
                 //System.out.println(yule);
                 yuleMapper.save(yule);
+                System.out.println(yule);
+                System.out.println("存存存");
             }
         }
         //System.out.println("存储完毕");
         return "存储完毕";
-
     }
+
+
+
 
     public String condition2() {
         //查找6个月内与1名以上异性开房的住客zjhms
         List<ZjAndCount> zcs = yxkfMapper.getZjhm(month, yxrs);
-        System.out.println(zcs.toString());
+        System.out.println(zcs);
         //查找娱乐从业人员zjhm
         List<Entertainperson> ents = entertainpersonMapper.find();
-        System.out.println(ents.toString());
         //遍历匹配
         for(ZjAndCount zc:zcs){
                 boolean flag=false;
@@ -78,20 +81,27 @@ public class YuleServiceImpl implements YuleService{
                     if(zc.getZjhm().equals(ent.getIdnum())){
                         yule.setCydz(ent.getUnit_name());
                         flag=true;
+                        System.out.println("1:"+zc.getZjhm());
+                        System.out.println("2:"+ent.getIdnum());
                         break;
                     }
                 }
+
+
                 if(flag){
-                    int index=0;
-                    List<Yxkf> yxkfs = yxkfMapper.getMessByZjkhm(zc.getZjhm(), month);
+
+                    System.out.println("zc:"+zc);
+                    int index=1;
+                    List<Yxkf> yxkfs = yxkfMapper.getMessByZjhm(zc.getZjhm(), month);
                     for(int i=0;i<yxkfs.size();i++) {
                         Yxkf yxkf = yxkfs.get(i);
-                        System.out.println("yxkf:"+yxkf);
+                        //System.out.println("yxkf:"+yxkf);
                         Yx yx = new Yx();
                         if (i == 0) {
+                            //System.out.println(yxkfs.get(0));
                             yule.setCjsj(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
                             yule.setXm(yxkf.getXm());
-                            System.out.println(yxkf.getXm());
+                            //System.out.println(yxkf.getXm());
                             yule.setZjhm(yxkf.getZjhm());
                             yule.setZz(yxkf.getZz());
                             yule.setXb(yxkf.getXb());
@@ -113,11 +123,13 @@ public class YuleServiceImpl implements YuleService{
                             yx.setXm(yxkf.getYx_xm());
                             yx.setZjhm(yxkf.getYx_zjhm());
                             yxs[0] = yx;
-                            index++;
+                            System.out.println("0进来的数据:"+yxkf);
+                            System.out.println("数据进来了");
                         } else {
+                            //System.out.println("i:"+i+";OK");
                             int num = -1;
                             for (int n = 0; n < yxs.length; n++) {
-                                if (yxs[n]!=null&&yxs[n].getXm() == yxkf.getYx_xm()) {
+                                if (yxs[n]!=null&&yxs[n].getZjhm().equals(yxkf.getYx_zjhm())) {
                                     num = n;
                                     break;
                                 }
@@ -130,11 +142,15 @@ public class YuleServiceImpl implements YuleService{
                                 yx.setKfjl(yxs[num].getKfjl()+","+yxkf.getYx_zklsh());
                                 yxs[num]=yx;
                             }else{
-                                yx.setXm(yxkf.getXm());
+                                yx.setXm(yxkf.getYx_xm());
                                 yx.setKfjl(yxkf.getYx_zklsh());
                                 yx.setCount(1);
                                 yx.setType(2);
                                 yx.setZjhm(yxkf.getYx_zjhm());
+                                System.out.println("length:"+yxs.length);
+                                System.out.println("index:"+index);
+                                System.out.println(index+":"+yxkf);
+                                System.out.println("zjhm:"+yxkf.getYx_zjhm());
                                 yxs[index] = yx;
                                 index++;
                             }
@@ -143,6 +159,7 @@ public class YuleServiceImpl implements YuleService{
                     }
                     yule.setMessage(Arrays.toString(yxs));
                     System.out.println(yule);
+
                     yuleMapper.save(yule);
                 }
 
@@ -171,7 +188,8 @@ public class YuleServiceImpl implements YuleService{
         String message=hotelCount.getKfjl();
         yule.setMessage(message);
         String[] strs=message.split(",");
-        Hotelguest hotelguest = hotelguestMapper.getByZklsh(strs[0]);
+        List<Hotelguest> hotelguests = hotelguestMapper.getByZklsh(strs[0]);
+        Hotelguest hotelguest=hotelguests.get(0);
         yule.setLast_fh(hotelguest.getFh());
         yule.setLast_lgbm(hotelguest.getLgbm());
         yule.setLast_lgmc(hotelguest.getLgmc());
@@ -182,18 +200,25 @@ public class YuleServiceImpl implements YuleService{
 
 
     public List<Yule>getMess_updte(){
-        List<ZjAndCount> zcs = yuleMapper.findZjAndCount_update(time);
-        List<Yule> yules = getYules(zcs);
+        List<String> zjhms = yuleMapper.getZjhm_update(time);
+        List<Yule> yules = getYules(zjhms);
+        return yules;
+    }
+
+    public List<Yule>getMess_history(){
+        List<String> zjhms = yuleMapper.getZjhm_history(month);
+        List<Yule> yules = getYules(zjhms);
         return yules;
     }
 
 
 
-    public List<Yule> getYules(List<ZjAndCount> zcs){
+    public List<Yule> getYules(List<String> zjhms){
         List<Yule>yules=new ArrayList<Yule>();
-        for(ZjAndCount zc:zcs){
-            List<Yule> yls=yuleMapper.findByZjhm(zc.getZjhm());
-            if(zc.getCount()==1){
+        for(String zjhm:zjhms){
+            List<Yule> yls=yuleMapper.findByZjhm(zjhm);
+            int ct=yuleMapper.getCount(zjhm);
+            if(ct==1){
                 yules.add(yls.get(0));
                 continue;
             }

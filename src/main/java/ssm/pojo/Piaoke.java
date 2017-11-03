@@ -1,7 +1,8 @@
 package ssm.pojo;
 
-public class HotelCount {
+public class Piaoke  {
 
+    private Integer id;
 
     private String cjsj;
 
@@ -9,13 +10,9 @@ public class HotelCount {
 
     private String zjhm;
 
-    private Integer count;
-
     private String zz;
 
     private String xb;
-
-    private String jg;
 
     private String mz;
 
@@ -23,9 +20,10 @@ public class HotelCount {
 
     private String zjlx;
 
-    private String kfjl;
+    private String jg;
 
-    private String type;
+    private Integer type;
+
 
     private String last_rzsj;
 
@@ -35,42 +33,39 @@ public class HotelCount {
 
     private String last_fh;
 
-    public String getJg() {
-        return jg;
-    }
+    private Integer count;
 
-    public void setJg(String jg) {
-        this.jg = jg;
-    }
-
-    public String getLast_lgmc() {
-        return last_lgmc;
-    }
-
-    public void setLast_lgmc(String last_lgmc) {
-        this.last_lgmc = last_lgmc;
-    }
+    private String message;
 
     @Override
     public String toString() {
-        return "HotelCount{" +
-                "cjsj='" + cjsj + '\'' +
+        return "Yule{" +
+                "id=" + id +
+                ", cjsj='" + cjsj + '\'' +
                 ", xm='" + xm + '\'' +
                 ", zjhm='" + zjhm + '\'' +
-                ", count=" + count +
                 ", zz='" + zz + '\'' +
                 ", xb='" + xb + '\'' +
-                ", jg='" + jg + '\'' +
                 ", mz='" + mz + '\'' +
                 ", csrq='" + csrq + '\'' +
                 ", zjlx='" + zjlx + '\'' +
-                ", kfjl='" + kfjl + '\'' +
-                ", type='" + type + '\'' +
+                ", jg='" + jg + '\'' +
+                ", type=" + type +
                 ", last_rzsj='" + last_rzsj + '\'' +
                 ", last_lgmc='" + last_lgmc + '\'' +
                 ", last_lgbm='" + last_lgbm + '\'' +
                 ", last_fh='" + last_fh + '\'' +
+                ", count=" + count +
+                ", message='" + message + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCjsj() {
@@ -95,14 +90,6 @@ public class HotelCount {
 
     public void setZjhm(String zjhm) {
         this.zjhm = zjhm;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     public String getZz() {
@@ -145,21 +132,22 @@ public class HotelCount {
         this.zjlx = zjlx;
     }
 
-    public String getKfjl() {
-        return kfjl;
+    public String getJg() {
+        return jg;
     }
 
-    public void setKfjl(String kfjl) {
-        this.kfjl = kfjl;
+    public void setJg(String jg) {
+        this.jg = jg;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
+
 
     public String getLast_rzsj() {
         return last_rzsj;
@@ -169,12 +157,12 @@ public class HotelCount {
         this.last_rzsj = last_rzsj;
     }
 
-    public String getLast_lbmc() {
+    public String getLast_lgmc() {
         return last_lgmc;
     }
 
-    public void setLast_lbmc(String last_lbmc) {
-        this.last_lgmc = last_lbmc;
+    public void setLast_lgmc(String last_lgmc) {
+        this.last_lgmc = last_lgmc;
     }
 
     public String getLast_lgbm() {
@@ -191,5 +179,21 @@ public class HotelCount {
 
     public void setLast_fh(String last_fh) {
         this.last_fh = last_fh;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

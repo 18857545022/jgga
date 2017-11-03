@@ -12,4 +12,6 @@ public interface YuleService {
     String condition2();
 
     List<Yule> getMess_updte();
+
+     List<Yule>getMess_history();
 }

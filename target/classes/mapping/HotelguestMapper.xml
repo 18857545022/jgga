@@ -11,6 +11,14 @@
 		HAVING count(1)>#{param2}
 	</select>
 
+	<select id="getHotelCount_hour" resultType="string">
+		select zjhm
+		FROM hotelguest
+		where rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} hour) AND SYSDATE()
+		group BY zjhm
+		HAVING count(1)>#{param2}
+	</select>
+
 	<select id="getByZjhm" resultType="ssm.pojo.Hotelguest" >
 		select *
 		from hotelguest
@@ -43,6 +51,12 @@
 		select *
 		FROM hotelguest
 		WHERE TO_DAYS(rzsj)=TO_DAYS(now())-#{param1};
+	</select>
+
+	<select id="get_update" parameterType="int" resultType="ssm.pojo.Hotelguest">
+		select *
+		FROM hotelguest
+		WHERE rzsj SUBDATE(SYSDATE(),INTERVAL #{param1} hour) and SYSDATE();
 	</select>
 
 	

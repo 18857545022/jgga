@@ -21,7 +21,7 @@ public interface YxkfMapper {
 	//娱乐：六个月内与2名以上异性开房 month=6，count=2
 	List<ZjAndCount> getZjhm(int month, int count);
 
-	List<Yxkf> getMessByZjkhm(String zjhm,int month);
+	List<Yxkf> getMessByZjhm(String zjhm,int month);
 	
 
 }

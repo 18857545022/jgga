@@ -16,7 +16,7 @@ public class HotelCountController {
     @RequestMapping("/test")
     @ResponseBody
     public String test(){
-        String s = hotelCountService.saveHotelCount(6, 7);
+        String s = hotelCountService.saveHotelCount(6, 7,"0607");
         return s;
     }
 }

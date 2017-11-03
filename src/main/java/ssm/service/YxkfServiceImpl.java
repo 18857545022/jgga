@@ -48,8 +48,9 @@ public class YxkfServiceImpl implements YxkfService {
     }
 
     public void saveYxkf_update(){
-       /* List<Hotelguest> guests = hotelguestMapper.get_history(hour);
-        mateAndSaveyxkf(guests);//对男女数据进行匹配,并且存储到yxkf表中*/
+        List<Hotelguest> guests = hotelguestMapper.get_update(hour);
+        mateAndSaveyxkf(guests);//对男女数据进行匹配,并且存储到yxkf表中
+
     }
 
     public void mateAndSaveyxkf(List<Hotelguest> guests) {
@@ -57,10 +58,10 @@ public class YxkfServiceImpl implements YxkfService {
         //对男女数据对比,匹配是否异性开房并且存储到yxkf记录中
         for(Hotelguest m:guests){
             for(Hotelguest n:guests){
-                if(m.getXb()==n.getXb()){
+                if(m.getXb().equals(n.getXb())){
                     continue;
                 }
-                if(m.getZklsh()==n.getZklsh()){
+                if(m.getZklsh().equals(n.getZklsh())){
                     continue;
                 }
                 if(m.getLgmc().equals(n.getLgmc())&&

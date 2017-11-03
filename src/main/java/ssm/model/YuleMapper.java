@@ -8,9 +8,11 @@ import java.util.List;
 public interface YuleMapper {
     void save(Yule yule);
 
-    List<ZjAndCount> findZjAndCount_update(Integer hour);
+    List<String> getZjhm_update(Integer hour);
 
-    List<ZjAndCount> find_history(Integer month);
+    List<String> getZjhm_history(Integer month);
 
     List<Yule> findByZjhm(String zjhm);
+
+    int getCount(String zjhm);
 }

@@ -33,10 +33,17 @@ public class YuleController {
     //定时推送任务
 
     @ResponseBody
-    @RequestMapping("/updateyl")
+    @RequestMapping("/ylupdate")
     public List<Yule> get_updete(){
         List<Yule> mess_updte = yuleService.getMess_updte();
         return mess_updte;
+    }
+
+    @ResponseBody
+    @RequestMapping("ylhistory")
+    public  List<Yule> get_history(){
+        List<Yule>mess_history=yuleService.getMess_history();
+        return mess_history;
     }
 
 }

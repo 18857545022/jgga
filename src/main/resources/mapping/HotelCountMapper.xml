@@ -3,7 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="ssm.model.HotelCountMapper">
-	<insert id="add" parameterType="ssm.pojo.HotelCount" >
+	<insert id="save" parameterType="ssm.pojo.HotelCount" >
 		INSERT INTO hotel_count
 		VALUES
 			(
@@ -17,20 +17,43 @@
 				#{csrq},
 				#{zjlx},
 				#{kfjl},
-				#{type}
+				#{type},
+				#{last_rzsj},
+				#{last_lgbm},
+				#{last_lgmc},
+				#{last_fh}
 			)
 			ON DUPLICATE KEY UPDATE  cjsj=values(cjsj),
 									  count=VALUES (count),
 			 						 kfjl=values(kfjl)
  	</insert>
 
-	<select id="findBycjsj"  resultType="ssm.pojo.HotelCount">
+	<select id="findByRzsj_hostory"  resultType="ssm.pojo.HotelCount">
 	SELECT *
 	from hotel_count
 	where type=#{param2}
 	and zjhm=#{param3}
-	and cjsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} hour) and SYSDATE()
+	and last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} month) and SYSDATE()
+	</select>
 
+	<select id="findByRzsj_update"  resultType="ssm.pojo.HotelCount">
+		SELECT *
+		from hotel_count
+		where type=#{param2}
+		and zjhm=#{param3}
+		and last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param1} hour) and SYSDATE()
+	</select>
+
+	<select id="getHotelCount" resultType="ssm.pojo.HotelCount" parameterType="string">
+	select *
+	FROM hotel_count
+	where type=#{type}
+	</select>
+	<select id="getHotelCount_update" resultType="ssm.pojo.HotelCount" parameterType="string">
+		select *
+		FROM hotel_count
+		where type=#{param1}
+		AND last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL #{param2} hour) and SYSDATE()
 	</select>
 
 

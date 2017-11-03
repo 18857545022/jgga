@@ -12,25 +12,18 @@ import java.util.Set;
 
 @Controller
 public class PiaokeController {
-	
+
 	@Autowired
 	private PiaokeService piaokeService;
-	
-	@RequestMapping(value = "/getNewPiaoke",produces = "application/json;charset=utf-8")
+
+	@RequestMapping("/savepiaoke1")
 	@ResponseBody
-	public Set<PiaokePojo> getPiaoke_new(){
-		Set<PiaokePojo> set = piaokeService.getPiaoke_hour();
-		return set;
+	public void savePiaoke_history(){
+		piaokeService.condition1("0106");
+		System.out.println("piaoke条件1存储完毕");
 	}
-	
-	
-	@RequestMapping(value = "/getHistoryPiaoke",produces = "application/json;charset=utf-8")
-	@ResponseBody
-	public Set<PiaokePojo> getPiaoke_history(){
-		 Set<PiaokePojo> set = piaokeService.getPiaoke_month(3);
-		//System.out.println("成功");
-		return set;
-	}
+
+
 
 
 

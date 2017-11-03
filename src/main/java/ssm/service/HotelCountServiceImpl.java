@@ -23,14 +23,31 @@ public class HotelCountServiceImpl implements  HotelCountService {
      *        count----几次以上
      * 备注：type=‘0607’ 表示6月内7次以上
      */
-    public String saveHotelCount(Integer month, Integer count){
-        List<String> zjhms = hotelguestMapper.getHotelCount(6, 7);
+    public String saveHotelCount(Integer month, Integer count,String type){
+        List<String> zjhms = hotelguestMapper.getHotelCount(month,count);
+        HotelCount hotelcout=new HotelCount();
+        for(String zjhm:zjhms){
+            List<Hotelguest> hotels = hotelguestMapper.getByZjhm(month, zjhm);
+            HotelCount hotelCount = hotelToHotelcount(hotels,type);
+            //System.out.println(hotelCount.toString());
+            hotelCountMapper.save(hotelCount);
+           /* if(i==0){
+                System.out.println("该条数据存储失败:"+hotelCount.toString());
+            }*/
+
+        }
+        //System.out.println(new DateTime().toString("yyyy-MM-dd hh-mm-ss")+":存储命令执行完毕");
+        return new DateTime().toString("yyyy-MM-dd HH:mm:ss")+":存储命令执行完毕";
+    }
+
+    public String saveHotelCount_update(Integer hour,Integer count,String type){
+        List<String> zjhms = hotelguestMapper.getHotelCount_hour(hour, count);
         HotelCount hotelcout=new HotelCount();
         for(String zjhm:zjhms){
             List<Hotelguest> hotels = hotelguestMapper.getByZjhm(6, zjhm);
-            HotelCount hotelCount = hotelToHotelcount(hotels);
+            HotelCount hotelCount = hotelToHotelcount(hotels,type);
             //System.out.println(hotelCount.toString());
-            hotelCountMapper.add(hotelCount);
+            hotelCountMapper.save(hotelCount);
            /* if(i==0){
                 System.out.println("该条数据存储失败:"+hotelCount.toString());
             }*/
@@ -41,7 +58,7 @@ public class HotelCountServiceImpl implements  HotelCountService {
     }
 
     //封装Hotelguest>>>>HotelCount的转变
-    public HotelCount hotelToHotelcount(List<Hotelguest> hotels){
+    public HotelCount hotelToHotelcount(List<Hotelguest> hotels,String type){
         HotelCount hotelCount = new HotelCount();
         String kfjl="";
         for(int i=0;i<hotels.size();i++){
@@ -56,8 +73,13 @@ public class HotelCountServiceImpl implements  HotelCountService {
                 hotelCount.setMz(hotel.getMz());
                 hotelCount.setCsrq(hotel.getCsrq());
                 hotelCount.setZjlx(hotel.getZjlx());
-                hotelCount.setType("0607");
+                hotelCount.setType(type);
+                hotelCount.setLast_fh(hotel.getFh());
+                hotelCount.setLast_lgbm(hotel.getLgbm());
+                hotelCount.setLast_lbmc(hotel.getLgbm());
+                hotelCount.setLast_rzsj(hotel.getRzsj());
                 kfjl=hotels.get(i).getZklsh();
+
             }else{
                 kfjl+=(","+hotels.get(i).getZklsh());
             }

@@ -4,7 +4,7 @@
 
 <mapper namespace="ssm.model.PiaokeMapper">
 	<insert id="save" 
-		parameterType="ssm.pojo.PiaokePojo">
+		parameterType="ssm.pojo.Piaoke">
 		insert into piaoke values(
 			#{id},
 			#{cjsj},
@@ -17,73 +17,20 @@
 			#{zjlx},
 			#{jg},
 			#{type},			
+			#{last_rzsj},
 			#{last_lgmc},
 			#{last_lgbm},
 			#{last_fh},
+			#{count},
 			#{message}
-		)
+		)ON DUPLICATE KEY UPDATE cjsj=values(cjsj),
+            								zz=VALUES (zz),
+            								count=values(count),
+            								last_rzsj=VALUES(last_rzsj),
+            								last_lgmc=VALUES (last_lgmc),
+            								last_lgbm=VALUES (last_lgbm),
+            								last_fh=VALUES (last_fh)
 	</insert>
-	
-	<select id="get_hour" 
-		resultType="ssm.pojo.PiaokePojo">
-		select *
-		FROM piaoke
-		where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL 1 hour) and SYSDATE()
-	</select>
-	
-	<select id="getPiaokeByZjhm"
-	parameterType="string"  
-	resultType="ssm.pojo.PiaokePojo">
-	select *
-	from piaoke
-	where zjhm=#{zjhm}
-	</select>
-	
-	<select id="getZjhm_hour_count" resultType="string">
-		select zjhm
-		FROM piaoke
-		where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL 1 hour) and SYSDATE()
-		GROUP BY zjhm
-		HAVING count(1)>1
-	</select>
-	
-	<select id="getZjhm_month_count" parameterType="string" resultType="string">
-		select a.zjhm
-		FROM
-		(select zjhm,type
-		FROM piaoke 
-		where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL ${_parameter} month) AND SYSDATE()
-		GROUP by zjhm,type)a
-		GROUP BY a.zjhm
-		having count(1)>1
-	</select>
-	
-	<select id="getZjhm_month" parameterType="string" resultType="string">
-		select zjhm
-		FROM piaoke
-		where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL ${_parameter} month) AND SYSDATE()
-		GROUP by zjhm
-	</select>
-	
-	<select id="getNewByZjhm"  resultType="ssm.pojo.PiaokePojo">
-		select *
-		FROM piaoke
-		where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL ${param1} month) and SYSDATE()
-		and cjsj=(select max(cjsj) from piaoke where zjhm=#{param2})
-		and zjhm=#{param2}
-	</select>
-	
-	
-	
-	<select id="getMessageByTypeAndZjhm" resultType="string">
-	select Message 
-	FROM piaoke 
-	where cjsj BETWEEN DATE_SUB(SYSDATE(),INTERVAL ${0} month) and SYSDATE()
-	and cjsj=(select max(cjsj) from piaoke where zjhm=#{1} and type=#{2})
-	and zjhm=#{1}
-	and type=#{2}
-	</select>
-	
-	
+
 
 </mapper>

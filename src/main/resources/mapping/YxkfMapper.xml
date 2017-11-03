@@ -27,7 +27,7 @@
 		 #{yx_zjhm},
 		 #{yx_type},
 		 #{yx_zklsh}
-		)
+		)ON DUPLICATE KEY UPDATE cjsj=values(cjsj)
 	</insert>
 	
 	<select id="getZjhm_month" resultType="string" parameterType="string">
@@ -84,10 +84,12 @@
 		HAVING count(1)>#{param2}
 	</select>
 
-	<select id="getMessByZjkhm"  resultType="ssm.pojo.Yxkf">
+
+
+	<select id="getMessByZjhm"  resultType="ssm.pojo.Yxkf">
 		select *
 		from yxkf
-		where cjsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param2} month) and SYSDATE()
+		where rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL ${param2} month) and SYSDATE()
 		AND zjhm=#{param1}
 		ORDER BY rzsj desc
 

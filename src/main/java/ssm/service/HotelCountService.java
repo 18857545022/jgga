@@ -1,5 +1,9 @@
 package ssm.service;
 
+import ssm.pojo.HotelCount;
+
+import java.util.List;
+
 public interface HotelCountService {
 
 
@@ -10,6 +14,10 @@ public interface HotelCountService {
      * 备注：type=‘0607’ 表示6月内7次以上
      */
 
-    public String saveHotelCount(Integer month, Integer count);
+    public String saveHotelCount(Integer month, Integer count,String type);
+
+    public String saveHotelCount_update(Integer hour,Integer count,String type);
+
+
 
 }

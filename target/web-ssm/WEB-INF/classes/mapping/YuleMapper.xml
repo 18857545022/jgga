@@ -19,21 +19,33 @@
             		#{jg},
             		#{type},
             		#{cydz},
-            		#{lastRzsj},
-            		#{lastLgmc},
-            		#{lastLgbm},
-            		#{lastFh},
+            		#{last_rzsj},
+            		#{last_lgmc},
+            		#{last_lgbm},
+            		#{last_fh},
             		#{count},
             		#{message}
-            	)
+            	)ON DUPLICATE KEY UPDATE cjsj=values(cjsj),
+            								zz=VALUES (zz),
+            								count=values(count),
+            								cydz=VALUES (cydz),
+            								last_rzsj=VALUES(last_rzsj),
+            								last_lgmc=VALUES (last_lgmc),
+            								last_lgbm=VALUES (last_lgbm),
+            								last_fh=VALUES (last_fh)
+
     </insert>
 
-	<select id="findZjAndCount_update" resultType="ssm.pojo.ZjAndCount">
-		select zjhm,count(1) as count
+
+
+	<select id="getCount" resultType="int" parameterType="string">
+		select count(1)
 		FROM yule
-		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL #{param1} hour) and SYSDATE()
-		group by zjhm
+		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL 6 month) and SYSDATE()
+		and zjhm=#{zjhm}
+
 	</select>
+
 
 	<select id="find_history" resultType="ssm.pojo.ZjAndCount">
 		select zjhm,count(1) as count
@@ -48,5 +60,18 @@
 		where zjhm=#{zjhm}
 	</select>
 
+	<select id="getZjhm_history" resultType="string">
+		select zjhm
+		FROM yule
+		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL #{param1} month) and SYSDATE()
+		group by zjhm
+	</select>
+
+	<select id="getZjhm_update" resultType="string">
+		select zjhm
+		FROM yule
+		where last_rzsj BETWEEN SUBDATE(SYSDATE(),INTERVAL #{param1} hour) and SYSDATE()
+		group by zjhm
+	</select>
 
 </mapper>
